@@ -57,7 +57,8 @@ jobs:
         chmod 600 ~/.ssh/id_rsa             
     # testing ssh connection to target deployement location (verbose / debugging enabled)
     - name: Test SSH Connection
-      run: ssh -i ~/.ssh/id_rsa -vvv -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "echo 'SSH Test Successful'"
+      run: ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "echo 'SSH Test Successful'"
+#      run: ssh -i ~/.ssh/id_rsa -vvv -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "echo 'SSH Test Successful'"
 
 
     # Step to sync the code to the EC2 instance
