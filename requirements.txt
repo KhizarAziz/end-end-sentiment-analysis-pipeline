@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pytest
+httpx #dependency for starlette.testclient
+pydantic
+transformers
