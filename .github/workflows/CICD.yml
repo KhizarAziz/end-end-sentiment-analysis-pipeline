@@ -44,7 +44,7 @@ jobs:
     steps:
     # Step to checkout the code from the current repo
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     # step to prepare ssh diretory to manage ssh keys
     - name: Prepare SSH directory
       run: |
@@ -68,7 +68,7 @@ jobs:
         # Add the EC2 host to known_hosts to avoid SSH authenticity confirmation
         ssh-keyscan ${{ secrets.HOST }} >> ~/.ssh/known_hosts
         # Use rsync to sync the code
-        rsync -rav --delete ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ec2-user/
+        rsync -rav --delete ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ec2-user/senti-project
       # Environment variables used in this step
       env:
         HOST: ${{ secrets.HOST }}            # EC2 hostname
@@ -85,6 +85,6 @@ jobs:
         sudo docker stop sentiment-container-name || true
         sudo docker rm sentiment-container-name  || true
         sudo docker rmi sentiment-ml-image || true
-        cd /home/ec2-user/
+        cd /home/ec2-user/senti-project
         sudo docker build -t sentiment-ml-image .
         sudo docker run -it --name sentiment-container-name -d sentiment-ml-image'
