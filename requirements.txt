@@ -3,4 +3,5 @@ uvicorn[standard]
 pytest
 httpx #dependency for starlette.testclient
 pydantic
+torch
 transformers

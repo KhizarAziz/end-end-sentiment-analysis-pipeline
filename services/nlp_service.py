@@ -1,6 +1,7 @@
 from transformers import DistilBertForSequenceClassification, DistilBertTokenizer
 import torch
 from utils.text_utils import clean_text, tokenize
+from config import config
 
 class NLPService:
     """
@@ -11,7 +12,7 @@ class NLPService:
         """
         Initializes the NLP service with necessary model and tokenizer.
         """
-        self.model_name = "distilbert-base-uncased"
+        self.model_name = config.SENTIMENT_MODEL
         self.tokenizer = DistilBertTokenizer.from_pretrained(self.model_name)
         self.model = DistilBertForSequenceClassification.from_pretrained(self.model_name)
 
