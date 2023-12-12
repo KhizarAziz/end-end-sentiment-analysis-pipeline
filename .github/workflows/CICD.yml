@@ -74,6 +74,15 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH private key for authentication
 
     # start docker on the Ec2 server
+#    - name: Docker build and restart
+#      run: |
+#        ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /home/ec2-user/ && (sudo docker stop sentiment-container-name || true) && (sudo docker rm sentiment-container-name  || true) && sudo docker rmi sentiment-ml-image && sudo docker build -t sentiment-ml-image . && sudo docker run -it --name sentiment-container-name -d sentiment-ml-image'
     - name: Docker build and restart
       run: |
-        ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /home/ec2-user/ && (sudo docker stop sentiment-container-name || true) && (sudo docker rm sentiment-container-name  || true) && sudo docker rmi sentiment-ml-image && sudo docker build -t sentiment-ml-image . && sudo docker run -it --name sentiment-container-name -d sentiment-ml-image'
+        ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
+        sudo docker stop sentiment-container-name || true
+        sudo docker rm sentiment-container-name  || true
+        sudo docker rmi sentiment-ml-image || true
+        cd /home/ec2-user/
+        sudo docker build -t sentiment-ml-image .
+        sudo docker run -it --name sentiment-container-name -d sentiment-ml-image'
