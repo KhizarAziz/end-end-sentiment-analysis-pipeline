@@ -5,6 +5,29 @@ from services.nlp_service import NLPService
 app = FastAPI()
 nlp_service = NLPService()
 
+@app.post("/predict/")
+async def predict_text(text_model: TextModel) -> str:
+    """
+    Endpoint to predict the sentiment of the given text.
+
+    Args:
+        text_model (TextModel): The input model containing the text to be analyzed.
+
+    Returns:
+        dict: A dictionary containing the prediction results.
+
+    Raises:
+        HTTPException: If an error occurs during prediction.
+    """
+    try:
+        return nlp_service.predict(text_model.text)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+
+
 def fibonacci(n: int) -> int:
     """
     Calculate the n-th Fibonacci number.
@@ -25,7 +48,7 @@ def fibonacci(n: int) -> int:
     return a
 
 @app.get("/{n}", response_model=int)
-async def read_item(n: int) -> int:
+def read_item(n: int) -> int:
     """
     Endpoint to retrieve the n-th Fibonacci number.
 
@@ -42,21 +65,3 @@ async def read_item(n: int) -> int:
         raise HTTPException(status_code=422, detail=str(e))
 
 
-@app.post("/predict/")
-async def predict_text(text_model: TextModel) -> dict:
-    """
-    Endpoint to predict the sentiment of the given text.
-
-    Args:
-        text_model (TextModel): The input model containing the text to be analyzed.
-
-    Returns:
-        dict: A dictionary containing the prediction results.
-
-    Raises:
-        HTTPException: If an error occurs during prediction.
-    """
-    try:
-        return nlp_service.predict(text_model.text)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))

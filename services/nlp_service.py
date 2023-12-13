@@ -24,11 +24,17 @@ class NLPService:
             text (str): The input text for sentiment analysis.
 
         Returns:
-            dict: A dictionary containing the probabilities of each sentiment.
+            str: A string containing the sentiment.
         """
         cleaned_text = clean_text(text)
         tokens = tokenize(cleaned_text, self.tokenizer)
         with torch.no_grad():
             outputs = self.model(tokens)
         probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
-        return {"positive": probabilities[0][1].item(), "negative": probabilities[0][0].item()}
+
+
+        # Find the sentiment with the higher probability
+        probabilities = {"positive": probabilities[0][1].item(), "negative": probabilities[0][0].item()}
+        sentiment = max(probabilities, key=probabilities.get)
+        
+        return sentiment #{"positive": probabilities[0][1].item(), "negative": probabilities[0][0].item()}
