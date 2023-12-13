@@ -1,2 +1,2 @@
 
-SENTIMENT_MODEL = "nlptown/bert-base-multilingual-uncased-sentiment"
+SENTIMENT_MODEL = "distilbert-base-uncased-finetuned-sst-2-english"
