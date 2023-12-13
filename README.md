@@ -1,5 +1,5 @@
-# Flix-Task Fibonacci API
-This is a test FastAPI application that calculates the n-th Fibonacci number for a given input `n`.
+# FastApi Boilerplate code to serve ML model
+This is a test FastAPI application that calculates the sentiment of given text and also n-th Fibonacci number for a given input `n`.
 
 ## Setup & Run
 
@@ -40,7 +40,7 @@ For example, to get the 10th Fibonacci number:
 curl http://127.0.0.1:5000/10
 ```
 
-2. As, sentiment prediction requires a paload, therefor cannot be directly accesssed from the browser using URL. An alternative is to utilize fastapi docs. To use this, you can do the following in your browser and test the service use UI,
+2. As, sentiment prediction endpoint is post because it requires a payload, therefor cannot be directly accesssed from the browser using URL. An alternative is to utilize fastapi docs. To use this, you can paste the following in your browser and test the service using UI,
 
 ```plaintext
 http://127.0.0.1:5000/docs
