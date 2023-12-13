@@ -82,9 +82,9 @@ jobs:
     - name: Docker build and restart
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        sudo docker stop sentiment-container-name || true
-        sudo docker rm sentiment-container-name  || true
+        sudo docker stop sentiment-container || true
+        sudo docker rm sentiment-container  || true
         sudo docker rmi sentiment-ml-image || true
         cd /home/ec2-user/senti-project
         sudo docker build -t sentiment-ml-image .
-        sudo docker run -it --name sentiment-container-name -d sentiment-ml-image'
+        sudo docker run -it --name sentiment-container -d sentiment-ml-image'
